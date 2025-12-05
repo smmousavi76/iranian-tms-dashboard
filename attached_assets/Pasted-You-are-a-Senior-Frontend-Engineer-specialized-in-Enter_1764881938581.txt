@@ -1,0 +1,56 @@
+You are a Senior Frontend Engineer specialized in Enterprise Fintech Dashboards.
+I need you to build a **High-Fidelity Prototype** for an Iranian Treasury Management System (TMS).
+
+**Constraints & Tech Stack:**
+1.  **Framework:** React (Vite) + TypeScript.
+2.  **Styling:** Tailwind CSS.
+3.  **UI Components:** Use a clean, custom design (or shadcn/ui concepts if available) but keep it lightweight.
+4.  **Charts:** Recharts.
+5.  **Icons:** Lucide-React.
+6.  **Layout:** **RTL (Right-to-Left)** direction is MANDATORY.
+7.  **Font:** Use 'Vazirmatn' from CDN for Persian typography.
+
+**Core Features to Build:**
+
+### 1. Global Configuration
+- **RTL Setup:** Ensure `dir="rtl"` is set on the html root.
+- **Font:** Add `@import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css');` to `index.css` and set font-family to 'Vazirmatn'.
+- **Currency Context:** Create a React Context or State to handle a global toggle: `currencyMode` ('RIAL' | 'TOMAN').
+    - **Logic:** All mock data is stored in **RIAL**. If mode is 'TOMAN', divide displayed values by 10.
+
+### 2. Mock Data Architecture (Create `src/data/mockData.ts`)
+Create realistic Typescript interfaces and data:
+- `BankAccount`: { id, bankName (e.g., Mellat, Tejarat), accountNumber, balanceRial (BigInt equivalent strings), status }.
+- `CashFlowForecast`: { date (Jalali string e.g., '1403/09/15'), amount, type ('ACTUAL' | 'FORECAST'), lowerBound?, upperBound? }.
+- `Transaction`: { id, description, amountRial, type ('DEBIT'|'CREDIT'), date, category }.
+- **Seed Data:** Generate massive numbers (billions) to simulate corporate treasury. Include "Blocked Amounts" logic.
+
+### 3. Layout & Components
+- **Sidebar:** Professional dark sidebar with items: Dashboard, Accounts, Reports, Settings.
+- **Header:**
+    - Breadcrumbs.
+    - **The Toggle Switch:** A prominent switch to toggle between "ریال (Rial)" and "تومان (Toman)".
+    - User Profile.
+- **Dashboard Widgets (High Density):**
+    - **Liquidity Summary Cards:** Total Balance, Blocked Funds, Available Funds. (Must react to the Currency Toggle).
+    - **Forecast Chart (Recharts):** An Area Chart showing the last 7 days (solid line) and next 7 days (dotted line/shaded area) representing the AI prediction.
+    - **Bank Positions Table:** A compact table showing balances per bank with a visual progress bar indicating the share of total liquidity.
+    - **Recent Transactions:** A list of recent movements with color coding (Green for incoming, Red for outgoing).
+
+### 4. Implementation Details
+- **Number Formatting:** Create a utility function `formatMoney(amount, currencyMode)` that adds comma separators (e.g., `12,500,000`).
+- **Date Handling:** Display dates as Strings for now (e.g., "1402/10/01") to keep it simple without heavy date libraries, but naming conventions should imply Jalali.
+
+**Visual Style:**
+- Use a "Slate" and "Blue/Indigo" color palette.
+- Background should be light gray (`bg-slate-50`), cards white (`bg-white shadow-sm`).
+- Text should be legible and high contrast.
+
+**Action Plan:**
+1. Setup project with RTL and Font.
+2. Create the `mockData.ts` file.
+3. Build the `Layout` and `CurrencyContext`.
+4. Implement the `Dashboard` page with the Chart and Tables.
+5. Ensure the Rial/Toman toggle updates all numbers instantly.
+
+Start by scaffolding the project and creating the Mock Data.
